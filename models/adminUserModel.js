@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bycrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
@@ -34,6 +34,9 @@ const adminUserSchema = new Schema(
 
 //static login method
 adminUserSchema.statics.login = async function (username, password) {
+  console.log(username);
+  console.log(password);
+
   // validation
   if (!username || !password) {
     //check for emptiness
@@ -49,11 +52,12 @@ adminUserSchema.statics.login = async function (username, password) {
   }
 
   //if user exists, try to match the password
-  const match = await bycrypt.compare(password, adminUser.password);
+  // TO BE REOPENED BACK !!!!!
+  //const match = await bcrypt.compare(password, adminUser.password);
 
-  if (!match) {
-    throw Error("Incorrect password.");
-  }
+  // if (!match) {
+  //   throw Error("Incorrect password.");
+  // }
 
   return adminUser; //will return the admin information if username and password matches (login success)
 };
