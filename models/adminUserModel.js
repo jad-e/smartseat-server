@@ -3,34 +3,29 @@ const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
-const adminUserSchema = new Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    phoneNumber: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+const adminUserSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-);
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+});
 
 //static login method
 adminUserSchema.statics.login = async function (username, password) {
@@ -52,14 +47,17 @@ adminUserSchema.statics.login = async function (username, password) {
   }
 
   //if user exists, try to match the password
-  // TO BE REOPENED BACK !!!!!
-  //const match = await bcrypt.compare(password, adminUser.password);
+  const match = await bcrypt.compare(password, adminUser.password);
 
-  // if (!match) {
-  //   throw Error("Incorrect password.");
-  // }
+  if (!match) {
+    throw Error("Incorrect password.");
+  }
 
   return adminUser; //will return the admin information if username and password matches (login success)
 };
 
 module.exports = mongoose.model("Admin", adminUserSchema);
+
+// DEFAULT ADMIN LOGIN CREDENTIALS:
+// Username: A001CC
+// Password: CariCakes123!

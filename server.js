@@ -3,6 +3,7 @@ require("dotenv").config(); //attaches the env variables into the process object
 const express = require("express");
 const mongoose = require("mongoose");
 const adminUserRoutes = require("./routes/adminUser");
+const adminDataRoutes = require("./routes/adminData");
 const assistanceRequestRoutes = require("./routes/assistanceRequest");
 
 // store express app in app var
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 //routes
 app.use("/api/assistanceRequest", assistanceRequestRoutes); //when user goes to "/api/assistanceRequest", try the assistanceRequestRoutes
 app.use("/api/adminUser", adminUserRoutes); //when user goes to "/api/adminUser", try the adminUserRoutes
+app.use("/api/adminData", adminDataRoutes);
 
 //connect to db
 mongoose
