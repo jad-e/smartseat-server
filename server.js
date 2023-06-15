@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const adminUserRoutes = require("./routes/adminUser");
 const adminDataRoutes = require("./routes/adminData");
+const studentDataRoutes = require("./routes/studentData");
 const assistanceRequestRoutes = require("./routes/assistanceRequest");
 
 // store express app in app var
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 app.use("/api/assistanceRequest", assistanceRequestRoutes); //when user goes to "/api/assistanceRequest", try the assistanceRequestRoutes
 app.use("/api/adminUser", adminUserRoutes); //when user goes to "/api/adminUser", try the adminUserRoutes
 app.use("/api/adminData", adminDataRoutes);
+app.use("/api/studentData", studentDataRoutes);
 
 //connect to db
 mongoose
