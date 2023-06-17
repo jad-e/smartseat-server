@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const adminUserRoutes = require("./routes/adminUser");
 const adminDataRoutes = require("./routes/adminData");
 const studentDataRoutes = require("./routes/studentData");
+const customizationRoutes = require("./routes/customization");
 const assistanceRequestRoutes = require("./routes/assistanceRequest");
 
 // store express app in app var
@@ -23,6 +24,7 @@ app.use("/api/assistanceRequest", assistanceRequestRoutes); //when user goes to 
 app.use("/api/adminUser", adminUserRoutes); //when user goes to "/api/adminUser", try the adminUserRoutes
 app.use("/api/adminData", adminDataRoutes);
 app.use("/api/studentData", studentDataRoutes);
+app.use("/api/customization", customizationRoutes);
 
 //connect to db
 mongoose

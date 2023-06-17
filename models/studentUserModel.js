@@ -38,6 +38,7 @@ const studentUserSchema = new Schema({
     required: true,
   },
   profImg: {
+    //NOT REQUIRED
     type: String,
   },
   reserveNum: {
@@ -61,6 +62,7 @@ const studentUserSchema = new Schema({
     required: true,
   },
   timeline: {
+    //NOT REQUIRED
     type: String,
   },
 });
