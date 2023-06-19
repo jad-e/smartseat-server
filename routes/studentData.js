@@ -8,7 +8,7 @@ const {
   updateStudent,
 } = require("../controllers/studentDataController");
 
-const requireAuth = require("../middleware/requireAuth");
+const requireAuth = require("../middlewares/requireAuth");
 
 const router = express.Router();
 
