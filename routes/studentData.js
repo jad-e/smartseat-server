@@ -8,7 +8,12 @@ const {
   updateStudent,
 } = require("../controllers/studentDataController");
 
+const requireAuth = require("../middleware/requireAuth");
+
 const router = express.Router();
+
+//require auth for all studentData routes
+router.use(requireAuth); //fire the middleware function
 
 //get all students
 router.get("/", getStudents);

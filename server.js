@@ -11,6 +11,8 @@ const violationRoutes = require("./routes/violation");
 const assistanceRequestRoutes = require("./routes/assistanceRequest");
 const reservationRoutes = require("./routes/reservation");
 
+const studentUserRoutes = require("./routes/studentUser");
+
 // store express app in app var
 const app = express();
 
@@ -31,6 +33,8 @@ app.use("/api/customization", customizationRoutes);
 app.use("/api/violation", violationRoutes);
 app.use("/api/assistanceRequest", assistanceRequestRoutes); //when user goes to "/api/assistanceRequest", try the assistanceRequestRoutes
 app.use("/api/reservation", reservationRoutes);
+
+app.use("/api/studentUser", studentUserRoutes);
 
 //connect to db
 mongoose

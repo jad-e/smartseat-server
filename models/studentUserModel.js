@@ -91,3 +91,7 @@ studentUserSchema.statics.login = async function (username, password) {
 };
 
 module.exports = mongoose.model("Student", studentUserSchema);
+
+// DEFAULT STUDENT LOGIN CREDENTIALS:
+// Username: P19010770
+// Password: HuiYing123!
