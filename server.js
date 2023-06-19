@@ -6,7 +6,10 @@ const adminUserRoutes = require("./routes/adminUser");
 const adminDataRoutes = require("./routes/adminData");
 const studentDataRoutes = require("./routes/studentData");
 const customizationRoutes = require("./routes/customization");
+
+const violationRoutes = require("./routes/violation");
 const assistanceRequestRoutes = require("./routes/assistanceRequest");
+const reservationRoutes = require("./routes/reservation");
 
 // store express app in app var
 const app = express();
@@ -20,11 +23,14 @@ app.use((req, res, next) => {
 });
 
 //routes
-app.use("/api/assistanceRequest", assistanceRequestRoutes); //when user goes to "/api/assistanceRequest", try the assistanceRequestRoutes
 app.use("/api/adminUser", adminUserRoutes); //when user goes to "/api/adminUser", try the adminUserRoutes
 app.use("/api/adminData", adminDataRoutes);
 app.use("/api/studentData", studentDataRoutes);
 app.use("/api/customization", customizationRoutes);
+
+app.use("/api/violation", violationRoutes);
+app.use("/api/assistanceRequest", assistanceRequestRoutes); //when user goes to "/api/assistanceRequest", try the assistanceRequestRoutes
+app.use("/api/reservation", reservationRoutes);
 
 //connect to db
 mongoose

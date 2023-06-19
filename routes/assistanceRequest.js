@@ -1,16 +1,16 @@
 const express = require("express");
 
 const {
+  createAssistanceRequest,
   getAssistanceRequests,
   getAssistanceRequest,
-  createAssistanceRequest,
   deleteAssistanceRequest,
   updateAssistanceRequest,
 } = require("../controllers/assistanceRequestController");
 
 const router = express.Router();
 
-//get all assistance request
+//get all assistance requests
 router.get("/", getAssistanceRequests);
 
 //get a single assistance request
@@ -22,7 +22,7 @@ router.post("/", createAssistanceRequest);
 //delete an assistance request
 router.delete("/:id", deleteAssistanceRequest);
 
-//update a new workout
+//update an assistance request
 router.patch("/:id", updateAssistanceRequest);
 
 module.exports = router;
