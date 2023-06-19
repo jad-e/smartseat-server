@@ -13,7 +13,7 @@ const violationSchema = new Schema({
   },
   violationType: {
     //1, 2, or 3
-    type: Number,
+    type: String,
     required: true,
   },
   time: {
