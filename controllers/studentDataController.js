@@ -11,22 +11,17 @@ const getStudents = async (req, res) => {
 
 //get a single student
 const getStudent = async (req, res) => {
-  const { id } = req.params;
-
-  //make sure it is a valid type of id (mongodb type of id)
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    //if its not valid
-    return res.status(404).json({ error: "Invalid student ID." });
-  }
+  const { id } = req.params; //1
+  const user_id = req.studentUser._id;
 
   //find the student
-  const student = await Student.findById(id);
+  const student = await Student.findById(user_id);
 
   if (!student) {
     return res.status(404).json({ error: "No such student found." });
   }
 
-  res.status(200).json(admin);
+  res.status(200).json(student);
 };
 
 //post a new student

@@ -72,6 +72,10 @@ studentUserSchema.statics.login = async function (username, password) {
   //check if the student user account exists (find the user)
   const studentUser = await this.findOne({ username }); //returns student document info if found
 
+  if (studentUser.authStat === "Blacklisted") {
+    throw Error("You are currently blacklisted.");
+  }
+
   if (!studentUser) {
     //if can't find anyone with the username
     throw Error("Incorrect username.");
