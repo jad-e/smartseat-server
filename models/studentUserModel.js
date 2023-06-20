@@ -69,9 +69,6 @@ const studentUserSchema = new Schema({
 
 //static login method
 studentUserSchema.statics.login = async function (username, password) {
-  console.log(username);
-  console.log(password);
-
   //check if the student user account exists (find the user)
   const studentUser = await this.findOne({ username }); //returns student document info if found
 
