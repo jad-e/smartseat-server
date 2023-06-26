@@ -65,6 +65,15 @@ const createStudent = async (req, res) => {
       blacklistNum: 0,
       authStat: "Authorized",
       seatStat: "None",
+      checkInEndTime: "",
+      shortBreakEndTime: "",
+      longBreakEndTime: "",
+      delayed: false,
+      timeline: [],
+      profImg: "",
+      shortBreakCount: 0,
+      lunchBreakCount: 0,
+      dinnerBreakCount: 0,
     });
     res.status(200).json(student);
   } catch (error) {
@@ -106,10 +115,23 @@ const updateStudent = async (req, res) => {
     gender,
     birthday,
     school,
+    profImg,
+    reserveNum,
     violateNum,
     blacklistNum,
     authStat,
+    seatStat,
+    checkInEndTime,
+    shortBreakEndTime,
+    longBreakEndTime,
+    delayed,
+    timeline,
+    shortBreakCount,
+    lunchBreakCount,
+    dinnerBreakCount,
   } = req.body; //extract the data that comes with the request
+
+  console.log("here ");
 
   //make sure it is a valid type of id (mongodb type of id)
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -117,33 +139,73 @@ const updateStudent = async (req, res) => {
     return res.status(404).json({ error: "Invalid student ID." });
   }
 
-  //find and update the wanted student
-  const student = await Student.findOneAndUpdate(
-    { _id: id },
-    {
-      $set: {
-        name: name,
-        email: email,
-        phoneNumber: phoneNumber,
-        gender: gender,
-        birthday: birthday,
-        school: school,
-        violateNum: violateNum,
-        blacklistNum: blacklistNum,
-        authStat: authStat,
-      },
+  //check if seatStat is empty (= updated from admin side)
+  if (!seatStat) {
+    console.log("here admin");
+
+    const student = await Student.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          name: name,
+          email: email,
+          phoneNumber: phoneNumber,
+          gender: gender,
+          birthday: birthday,
+          school: school,
+          violateNum: violateNum,
+          blacklistNum: blacklistNum,
+          authStat: authStat,
+        },
+      }
+    ); //returns the to be updated student
+
+    if (!student) {
+      return res.status(404).json({ error: "No such student found." });
     }
-  ); //returns the to be updated student
 
-  if (!student) {
-    return res.status(404).json({ error: "No such student found." });
+    //res.status(200).json(admin); //return the to be updated admin
+
+    const students = await Student.find();
+
+    res.status(200).json(students);
+  } else {
+    //updated from student side
+
+    console.log("here student");
+
+    const student = await Student.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          profImg: profImg,
+          seatStat: seatStat,
+          checkInEndTime: checkInEndTime,
+          shortBreakEndTime: shortBreakEndTime,
+          longBreakEndTime: longBreakEndTime,
+          delayed: delayed,
+          reserveNum: reserveNum,
+          timeline: timeline,
+          shortBreakCount: shortBreakCount,
+          lunchBreakCount: lunchBreakCount,
+          dinnerBreakCount: dinnerBreakCount,
+        },
+      }
+    ); //returns the to be updated student
+
+    if (!student) {
+      return res.status(404).json({ error: "No such student found." });
+    }
+
+    //find the updated student
+    const studentUpdated = await Student.findById(id);
+
+    if (!studentUpdated) {
+      return res.status(404).json({ error: "No such student found." });
+    }
+
+    res.status(200).json(studentUpdated);
   }
-
-  //res.status(200).json(admin); //return the to be updated admin
-
-  const students = await Student.find();
-
-  res.status(200).json(students);
 };
 
 module.exports = {

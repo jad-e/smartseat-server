@@ -16,8 +16,8 @@ const reservationSchema = new Schema({
     required: true,
   },
   timeEnd: {
+    //NOT REQUIRED
     type: String,
-    required: true,
   },
   date: {
     type: String,
@@ -28,10 +28,6 @@ const reservationSchema = new Schema({
     required: true,
   },
   seat: {
-    type: String,
-    required: true,
-  },
-  dateTime: {
     type: String,
     required: true,
   },

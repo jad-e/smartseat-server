@@ -30,8 +30,7 @@ const getReservation = async (req, res) => {
 
 //post a new reservation
 const createReservation = async (req, res) => {
-  const { username, name, timeStart, timeEnd, date, venue, seat, dateTime } =
-    req.body; //extract the data that comes with the request
+  const { username, name, timeStart, timeEnd, date, venue, seat } = req.body; //extract the data that comes with the request
 
   //add doc to db
   try {
@@ -44,7 +43,6 @@ const createReservation = async (req, res) => {
       date,
       venue,
       seat,
-      dateTime,
     });
     res.status(200).json(reservation);
   } catch (error) {
@@ -78,27 +76,15 @@ const deleteReservation = async (req, res) => {
 
 //update a reservation
 const updateReservation = async (req, res) => {
-  const { id } = req.params;
-  const { name, timeStart, timeEnd, date, venue, seat, dateTime } = req.body; //extract the data that comes with the request
-
-  //make sure it is a valid type of id (mongodb type of id)
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    //if its not valid
-    return res.status(404).json({ error: "Invalid reservation ID." });
-  }
+  const { username } = req.params;
+  const { timeEnd } = req.body; //extract the data that comes with the request
 
   //find and update the wanted reservation
   const reservation = await Reservation.findOneAndUpdate(
-    { _id: id },
+    { username: username, timeEnd: "" },
     {
       $set: {
-        name: name,
-        timeStart: timeStart,
         timeEnd: timeEnd,
-        date: date,
-        venue: venue,
-        seat: seat,
-        dateTime: dateTime,
       },
     }
   ); //returns the to be updated reservation

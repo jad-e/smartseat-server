@@ -38,7 +38,6 @@ const studentUserSchema = new Schema({
     required: true,
   },
   profImg: {
-    //NOT REQUIRED
     type: String,
   },
   reserveNum: {
@@ -58,12 +57,37 @@ const studentUserSchema = new Schema({
     required: true,
   },
   seatStat: {
+    //None, Pending Reservation_"location"_"seat number"_"time", Reserved_"seat number"
     type: String,
     required: true,
   },
-  timeline: {
-    //NOT REQUIRED
+  checkInEndTime: {
     type: String,
+  },
+  shortBreakEndTime: {
+    type: String,
+  },
+  longBreakEndTime: {
+    type: String,
+  },
+  delayed: {
+    type: Boolean,
+    required: true,
+  },
+  timeline: {
+    type: [Schema.Types.Mixed],
+  },
+  shortBreakCount: {
+    type: Number,
+    required: true,
+  },
+  lunchBreakCount: {
+    type: Number,
+    required: true,
+  },
+  dinnerBreakCount: {
+    type: Number,
+    required: true,
   },
 });
 
